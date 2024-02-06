@@ -4,9 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
 import time
-import pyautogui as pg
-import sys
-import time
 
 
 class Browser:
@@ -17,7 +14,7 @@ class Browser:
 
         - Faz a configuração do Browser para ser utilizado, abrindo o navegador através da passagem do caminho do chrome e chromedriver.
 
-        - Opção da passagem por parâmetro do site à ser aberto, opção de rodar em segundo plano com headless e a opção de abrir maximizado (padrão), através do maximized.
+        - Requere a passagem por parâmetro do site à ser aberto, opção de rodar em segundo plano com headless e a opção de abrir maximizado (padrão), através do maximized.
 
         - Retorna o ~driver~ para navegação.
 
@@ -186,40 +183,3 @@ class Waits:
             - Retorna o título.
         '''
         return WebDriverWait(driver,tries).until(EC.title_is(title))
-
-#---------------------------------------
-
-class Desktop:
-    def max(window_name):
-        pg.getWindowsWithTitle(window_name)[0].maximize()
-
-    def min(window_name):
-        pg.getWindowsWithTitle(window_name)[0].minimize()
-    
-class Screen:
-    def locate_ons(image_path):
-        try:
-            position = pg.locateOnScreen(image_path, confidence=0.7)
-        except Exception as error:
-            print(error)
-        print(f"Seletor localizado em: {position}")
-        return position
-
-    def try_locate_image(imagePath, try_count=0, tries=5):
-        while try_count >= 0:
-            position = pg.locateOnScreen(imagePath)
-            time.sleep(1)
-            try_count += 1
-            print(try_count)
-            if try_count >= tries or position is not None:
-                break
-        try:
-            if position is not None:
-                print(f"position = {position}")
-                return position
-            else:
-                raise Exception(f'Imagem: "{imagePath}", não localizada')
-        except Exception as error:
-            print(error)
-            pg.screenshot(r'assets\images\ERROR_screenshot.png')
-            sys.exit()
