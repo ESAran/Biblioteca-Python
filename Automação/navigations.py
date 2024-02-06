@@ -189,7 +189,7 @@ class WWaits:
     
 # DESKTOP
 # --------------------------------------------------------------
-class Desktop:
+class DPrograms:
     def open_program():
         return
 
@@ -199,7 +199,7 @@ class Desktop:
     def min(window_name):
         pg.getWindowsWithTitle(window_name)[0].minimize()
     
-class Screen:
+class DScreen:
     def locate_ons(image_path):
         try:
             position = pg.locateOnScreen(image_path, confidence=0.7)
