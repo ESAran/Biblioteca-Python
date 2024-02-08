@@ -3,12 +3,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
-import time
+import time, sys, os, win32com.client
 import pyautogui as pg
-import sys
+import pandas as pd
 
-
-# WEB
+# region WEB
 # --------------------------------------------------------------
 class WBrowser:
     '''
@@ -48,21 +47,31 @@ class WBrowser:
 
             - Retorna o ~driver~ para navegação.
             '''
+        
+        # Configurações do Chrome
         chrome_options = webdriver.ChromeOptions()
+        
+        # Verifica se inicia maximizado
         if (maximized == True):
             chrome_options.add_argument('--start-maximized')
         chrome_options.add_argument('--enable-chrome-browser-cloud-management')
+
+        # verifica se inicia em segundo plano
         if (headless == True):
             chrome_options.add_argument('--headless')
             chrome_options.add_argument("window-size=1920,1080");       
+        
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+        # Caminho do Chrome e Chromedriver
         chrome_options.binary_location = r"chrome-win64\chrome.exe"
         chrome_driver_path = r"chromedriver-win64\chromedriver.exe"
+
         service_options = webdriver.ChromeService(executable_path=chrome_driver_path)
         driver = webdriver.Chrome(options=chrome_options, service=service_options)
 
+        # Obtém e retorna o driver
         driver.get(site)
-
         return (driver)
 
     def open_tab(driver, url=''):
@@ -75,6 +84,7 @@ class WBrowser:
             
             - Retorna o ~driver~ para navegação.
             '''
+        
         driver.execute_script('window.open("' + str(url) + '");')
         time.sleep(1)
         return driver
@@ -89,6 +99,7 @@ class WBrowser:
             
             - Retorna o ~driver~ para navegação.
             '''
+        
         driver.switch_to.window(driver.window_handles[tab])
         time.sleep(1)
         return driver
@@ -116,7 +127,8 @@ class WForms:
             - Retorna a seleção do elemento. 
             
             '''
-        select = Select(Waits.visible(driver, by_tipe, selector, tries))
+
+        select = Select(WWaits.visible(driver, by_tipe, selector, tries))
         if by_text == True:
             return select.select_by_visible_text(text)
         else:
@@ -175,6 +187,7 @@ class WWaits:
             - Retorna o elemento.
         '''
         return WebDriverWait(driver,tries).until(EC.visibility_of_element_located((by_tipe, selector)))
+    
     def title(driver, title, tries=5):
         '''
         title():
@@ -186,18 +199,86 @@ class WWaits:
             - Retorna o título.
         '''
         return WebDriverWait(driver,tries).until(EC.title_is(title))
+
+# endregion WEB
     
-# DESKTOP
+# region DESKTOP
 # --------------------------------------------------------------
 class DPrograms:
-    def open_program():
-        return
+    def open_program(path):
+        '''
+        open_program():
+
+            - Abre um programa no computador
+
+            - Requer a passagem por parâmetro do caminho onde está o programa.
+        '''
+        os.startfile(path)
 
     def max(window_name):
+        '''
+        max():
+
+            - Maximiza uma janela do computador
+
+            - Requer a passagem por parâmetro do nome da janela.
+        '''
         pg.getWindowsWithTitle(window_name)[0].maximize()
 
     def min(window_name):
+        '''
+        min():
+
+            - Minimiza uma janela do computador
+
+            - Requer a passagem por parâmetro do nome da janela.
+        '''
         pg.getWindowsWithTitle(window_name)[0].minimize()
+    
+class DOSWindows:
+    def excel_refresh_query(path, visivel = True):
+        arquivo = path.split('/')
+        arquivo = arquivo[-1]
+        print(arquivo)
+        excel = win32com.client.DispatchEx("Excel.Application")
+        excel.visible = visivel
+        print('1. excel aberto.')
+
+        if excel.Workbooks.Count > 0:
+            for i in range(1, excel.Workbooks.Count+1):
+                if excel.Workbooks.Item(i).Name is arquivo:
+                    wb = excel.Workbooks.Item(i)
+                    break
+
+        wb = excel.Workbooks.Open(path)
+        print('2. Arquivo selecionado.')
+        wb.RefreshAll()
+        print('3. Atualizando dados.')
+        excel.CalculateUntilAsyncQueriesDone()
+        print('4. Consulta finalizada.')
+        wb.Save()
+        print('5. Arquivo salvo.')
+        excel.Quit()
+        print('6. Finalizado.')
+    
+    def excel_to_csv(path, path_save=''):
+        # Lê o nome do arquivo
+        if (path_save != ''):
+            arquivoxls = path.split('/')
+            arquivoxls = arquivoxls[-1]
+
+            # Altera para '.csv'
+            arquivocsv = arquivoxls.split('.')
+            arquivocsv = str(arquivocsv[0]) + '.csv'
+
+            # Substitui o antigo pelo novo
+            path_save = path.replace(arquivoxls, arquivocsv)
+
+        # Faz a leitura do arquivo com pandas
+        print(path)
+        arquivo = pd.read_excel(path)
+        arquivo.to_csv (path_save, index=None, header=True)
+        print('\nArquivo salvo em: ' + path_save)
     
 class DScreen:
     def locate_ons(image_path):
@@ -226,3 +307,4 @@ class DScreen:
             print(error)
             pg.screenshot(r'assets\images\ERROR_screenshot.png')
             sys.exit()
+# endregion DESKTOP
