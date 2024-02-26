@@ -7,6 +7,10 @@ import time, sys, os, win32com.client
 import pyautogui as pg
 import pandas as pd
 
+# -- Para automação sicredi
+from win32com.client import Dispatch
+from selenium.webdriver.chrome.service import Service
+
 # region WEB
 # --------------------------------------------------------------
 class WBrowser:
@@ -36,6 +40,18 @@ class WBrowser:
         - Requer a passagem por parâmetro do driver e a aba desejada (ordem das abas correspondem à ordem em que foram abertas, primeira aba é zero, segunda é um...).
         
         - Retorna o ~driver~ para navegação.
+            
+    close_tab():
+        
+        - Fecha a abas do navegador.
+
+        - Requer a passagem por parâmetro do driver e a quantidade de abas que vão ser fechadas.
+
+    quit_browser():
+        
+        - Fecha o navegador.
+
+        - Requer a passagem por parâmetro do driver.
         '''
     def chrome_browser(site='chrome://newtab', headless=False, maximized=True):
         '''
@@ -72,6 +88,7 @@ class WBrowser:
 
         # Obtém e retorna o driver
         driver.get(site)
+
         return (driver)
 
     def open_tab(driver, url=''):
@@ -103,7 +120,28 @@ class WBrowser:
         driver.switch_to.window(driver.window_handles[tab])
         time.sleep(1)
         return driver
+    
+    def close_tab(driver):
+        '''
+        close_tab():
+        
+            - Fecha a aba do navegador.
 
+            - Requer a passagem por parâmetro do driver.
+            '''
+        driver.close()
+        return driver
+
+    def quit_browser(driver):
+        '''
+        quit_browser():
+        
+            - Fecha o navegador.
+
+            - Requer a passagem por parâmetro do driver.
+            '''
+        return driver.quit()
+    
 class WForms:
     '''
     Classe de elementos de formulários
