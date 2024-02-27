@@ -1,9 +1,7 @@
 # Automação
 ## Documentações importantes
-### [📄](https://selenium-python.readthedocs.io/) Selenium
-Para automação web e scraping de dados.
-### [📄](https://pyautogui.readthedocs.io/en/latest/) PyAutoGUI
-Para manipulação de interface gráfica e automação desktop.
+### Bibliotecas relevantes para o desenvolvimento de automação no python!
+https://github.com/ESAran/Biblioteca-Python/tree/main#automa%C3%A7%C3%B5es
 
 ## Arquivos
 
