@@ -13,7 +13,8 @@ Bibliotecas e documentações separadas por categorias. Clique no "📄" para ir
 - ### Python
   - ### [📄](https://docs.python.org/3/library/secrets.html) Secrets
     Gera números aleatórios de segurança para gerenciar informações sigilosas
-
+  - ### [📄](https://docs.python.org/3/library/csv.html) CSV
+    Biblioteca para manipular arquivos .csv
 
 ## Pastas
 Pastas com arquivos criados para auxiliar no desenvolvimento.
