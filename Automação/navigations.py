@@ -247,7 +247,7 @@ class DPrograms:
         '''
         open_program():
 
-            - Abre um programa no computador
+            - Abre um programa no computador.
 
             - Requer a passagem por parâmetro do caminho onde está o programa.
         '''
@@ -257,7 +257,7 @@ class DPrograms:
         '''
         max():
 
-            - Maximiza uma janela do computador
+            - Maximiza uma janela do computador.
 
             - Requer a passagem por parâmetro do nome da janela.
         '''
@@ -267,39 +267,67 @@ class DPrograms:
         '''
         min():
 
-            - Minimiza uma janela do computador
+            - Minimiza uma janela do computador.
 
             - Requer a passagem por parâmetro do nome da janela.
         '''
         pg.getWindowsWithTitle(window_name)[0].minimize()
     
-class DOSWindows:
-    def excel_refresh_query(path, visivel = True):
+class DSSheets:
+
+    def windows_excel_refresh_query(path, visible = True):
+        '''
+        windows_excel_refresh_query():
+
+            - Recarrega a consulta de um arquivo Excel.
+
+            - Requer a passagem por parâmetro do caminho do arquivo e se a operação será visível ou rodada em segundo plano.
+        '''
+        # Obtém o nome do arquivo Excel
         arquivo = path.split('/')
         arquivo = arquivo[-1]
         print(arquivo)
+
+        # Inicia o Excel
         excel = win32com.client.DispatchEx("Excel.Application")
-        excel.visible = visivel
+        
+        # Determina se será em segundo plano
+        excel.visible = visible
         print('1. excel aberto.')
 
+        # Cria o Workbook
         if excel.Workbooks.Count > 0:
             for i in range(1, excel.Workbooks.Count+1):
                 if excel.Workbooks.Item(i).Name is arquivo:
                     wb = excel.Workbooks.Item(i)
                     break
 
+        # Abre o arquivo 
         wb = excel.Workbooks.Open(path)
         print('2. Arquivo selecionado.')
+
+        #Recarrega a A Query
         wb.RefreshAll()
         print('3. Atualizando dados.')
+
+        # Aguarda até ela finalizar
         excel.CalculateUntilAsyncQueriesDone()
         print('4. Consulta finalizada.')
+
+        # Salva e fecha o arquivo
         wb.Save()
         print('5. Arquivo salvo.')
         excel.Quit()
         print('6. Finalizado.')
-    
+
     def excel_to_csv(path, path_save=''):
+        '''
+        excel_to_csv():
+
+            - Converte um arquivo Excel para um arquivo .csv
+
+            - Requer a passagem por parâmetro do caminho do arquivo Excel a opção do caminho para salvar caso seja em um local diferente.
+        '''
         # Lê o nome do arquivo
         if (path_save != ''):
             arquivoxls = path.split('/')
@@ -317,7 +345,43 @@ class DOSWindows:
         arquivo = pd.read_excel(path)
         arquivo.to_csv (path_save, index=None, header=True)
         print('\nArquivo salvo em: ' + path_save)
-    
+
+    def csv(path_csv, row, operation):
+        '''
+        csv():
+
+            - Realiza operações em arquivos CSV
+
+            - Requer a passagem por parâmtro do caminho e a linha à ser escrita ou adicionada, assim como a operação.
+                ---
+            Operações: 
+
+            a > append > Adiciona uma linha no arquivo CSV
+
+            w >  write > Escreve uma linha no arquivo CSV, limpando o que continha antes
+        '''
+        # Append (Adiciona uma linha)
+        if operation == 'a':
+            # Abre o arquivo no modo append e cria um objeto dele
+            with open(path_csv, 'a') as csv:
+                # Cria um writer para adiocnar informações
+                csv_writer = writer(csv)
+                # Passa a linha à ser adicionada
+                csv_writer.writerow(row)
+                # Fecha o arquivo
+                csv.close()
+        # Write (Escreve uma linha)
+        if operation == 'w':
+            # Abre o arquivo no modo append e cria um objeto dele
+            with open(path_csv, 'w') as csv:
+                # Cria um writer para adiocnar informações
+                csv_writer = writer(csv)
+                # Passa a linha à ser adicionada
+                csv_writer.writerow(row)
+                # Fecha o arquivo
+                csv.close()
+
+
 class DScreen:
     def locate_ons(image_path):
         try:
