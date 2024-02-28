@@ -307,6 +307,7 @@ class DSSheets:
         print('2. Arquivo selecionado.')
 
         #Recarrega a A Query
+        time.sleep(15)
         wb.RefreshAll()
         print('3. Atualizando dados.')
 
@@ -315,21 +316,24 @@ class DSSheets:
         print('4. Consulta finalizada.')
 
         # Salva e fecha o arquivo
+        time.sleep(3)
         wb.Save()
         print('5. Arquivo salvo.')
         excel.Quit()
+        time.sleep(15)
         print('6. Finalizado.')
 
-    def excel_to_csv(path, path_save=''):
+
+    def excel_to_csv(path, path_save=None):
         '''
         excel_to_csv():
 
             - Converte um arquivo Excel para um arquivo .csv
 
-            - Requer a passagem por parâmetro do caminho do arquivo Excel a opção do caminho para salvar caso seja em um local diferente.
+            - Requer a passagem por parâmetro do caminho do arquivo Excel e possui opção do caminho para salvar caso seja em um local diferente.
         '''
-        # Lê o nome do arquivo
-        if (path_save != ''):
+        # Cria o nome do arquivo .CSV para salvamento
+        if (path_save == None):
             arquivoxls = path.split('/')
             arquivoxls = arquivoxls[-1]
 
@@ -341,10 +345,9 @@ class DSSheets:
             path_save = path.replace(arquivoxls, arquivocsv)
 
         # Faz a leitura do arquivo com pandas
-        print(path)
         arquivo = pd.read_excel(path)
-        arquivo.to_csv (path_save, index=None, header=True)
-        print('\nArquivo salvo em: ' + path_save)
+        arquivo.to_csv(path_save, index=None, header=True)
+        print('Arquivo salvo: ' + str(path_save))
 
     def csv(path_csv, row, operation):
         '''
