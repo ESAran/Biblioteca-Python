@@ -165,12 +165,25 @@ class WForms:
             - Retorna a seleção do elemento. 
             
             '''
-
         select = Select(WWaits.visible(driver, by_tipe, selector, tries))
         if by_text == True:
             return select.select_by_visible_text(text)
         else:
             return select.select_by_index(option)
+            
+     def input_writer(driver, by_type, selector, text, tries=5):
+        '''
+        input_writer():
+
+            - Escreve um texto em um campo
+
+            - Requer a passagem por parâmetro do driver, o tipo do elemento, o seletor, o texto à ser preenchido e as tentativas.
+
+            - Retorna o preenchimento
+        '''
+        textbox = WWaits.visible(driver, by_type, selector, tries)
+        textbox.clear()
+        return textbox.send_keys(text)
 
 class WWaits:
     '''
