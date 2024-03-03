@@ -16,6 +16,10 @@ Bibliotecas e documentações separadas por categorias. Clique no "📄" para ir
   - ### [📄](https://docs.python.org/3/library/csv.html) CSV
     Biblioteca para manipular arquivos .csv
 
+- ### Análise de Dados
+  - ### [📄](https://pandas.pydata.org/docs/) Pandas
+    Manipulação de dados, dataframes e análise de dados.
+
 ## Pastas
 Pastas com arquivos criados para auxiliar no desenvolvimento.
 
