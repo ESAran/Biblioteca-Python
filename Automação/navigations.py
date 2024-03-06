@@ -6,10 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import time, sys, os, win32com.client
 import pyautogui as pg
 import pandas as pd
+from csv import writer
 
-# -- Para automação sicredi
-from win32com.client import Dispatch
-from selenium.webdriver.chrome.service import Service
+
 
 # region WEB
 # --------------------------------------------------------------
@@ -75,7 +74,8 @@ class WBrowser:
         # verifica se inicia em segundo plano
         if (headless == True):
             chrome_options.add_argument('--headless')
-            chrome_options.add_argument("window-size=1920,1080");       
+            chrome_options.add_argument("window-size=1920,1080");
+            chrome_options.add_argument("--log-level=3") 
         
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
@@ -165,13 +165,14 @@ class WForms:
             - Retorna a seleção do elemento. 
             
             '''
+
         select = Select(WWaits.visible(driver, by_tipe, selector, tries))
         if by_text == True:
             return select.select_by_visible_text(text)
         else:
             return select.select_by_index(option)
-            
-     def input_writer(driver, by_type, selector, text, tries=5):
+        
+    def input_writer(driver, by_type, selector, text, tries=5):
         '''
         input_writer():
 
@@ -184,7 +185,7 @@ class WForms:
         textbox = WWaits.visible(driver, by_type, selector, tries)
         textbox.clear()
         return textbox.send_keys(text)
-
+    
 class WWaits:
     '''
     Classe de agurdar elementos no navegador
