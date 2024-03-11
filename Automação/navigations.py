@@ -8,7 +8,9 @@ import pyautogui as pg
 import pandas as pd
 from csv import writer
 
-
+# -- Para automação sicredi
+from win32com.client import Dispatch
+from selenium.webdriver.chrome.service import Service
 
 # region WEB
 # --------------------------------------------------------------
@@ -75,15 +77,32 @@ class WBrowser:
         if (headless == True):
             chrome_options.add_argument('--headless')
             chrome_options.add_argument("window-size=1920,1080");
-            chrome_options.add_argument("--log-level=3") 
+            chrome_options.add_argument("--log-level=3")   
         
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
         # Caminho do Chrome e Chromedriver
-        chrome_options.binary_location = r"chrome-win64\chrome.exe"
-        chrome_driver_path = r"chromedriver-win64\chromedriver.exe"
+        #chrome_options.binary_location = r"chrome-win64\chrome.exe"
+        #chrome_driver_path = r"chromedriver-win64\chromedriver.exe"
 
-        service_options = webdriver.ChromeService(executable_path=chrome_driver_path)
+        #service_options = webdriver.ChromeService(executable_path=chrome_driver_path)
+        #driver = webdriver.Chrome(options=chrome_options, service=service_options)
+
+        # -- Para automação sicredi
+        def get_version_via_com(filename):
+            parser = Dispatch("Scripting.FileSystemObject")
+            try:
+                versaoBrowser = parser.GetFileVersion(filename)
+            except Exception:
+                return None
+            return versaoBrowser
+        paths = [r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"]
+        chrome_options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        versaoBrowser = list(filter(None, [get_version_via_com(p) for p in paths]))[0]
+        versaoBrowser = versaoBrowser[0:3]
+        #service_options = Service("F:\\automacao\\chromedriver\\chromedriver_"+versaoBrowser+".exe")
+        service_options = webdriver.ChromeService("//10.20.30.4//Publico//automacao//chromedriver//chromedriver_"+versaoBrowser+".exe")
         driver = webdriver.Chrome(options=chrome_options, service=service_options)
 
         # Obtém e retorna o driver
@@ -154,7 +173,7 @@ class WForms:
 
         - Retorna a seleção do elemento. 
     '''
-    def select(driver, by_tipe, selector, tries=5, by_text=False, option=0, text=''):
+    def select(driver, by_tipe, selector, text=None, tries=5, by_text=False, option=0):
         '''
         select():
 
@@ -165,7 +184,6 @@ class WForms:
             - Retorna a seleção do elemento. 
             
             '''
-
         select = Select(WWaits.visible(driver, by_tipe, selector, tries))
         if by_text == True:
             return select.select_by_visible_text(text)
@@ -174,7 +192,7 @@ class WForms:
         
     def input_writer(driver, by_type, selector, text, tries=5):
         '''
-        input_writer():
+        imput_writer():
 
             - Escreve um texto em um campo
 
@@ -185,7 +203,8 @@ class WForms:
         textbox = WWaits.visible(driver, by_type, selector, tries)
         textbox.clear()
         return textbox.send_keys(text)
-    
+
+
 class WWaits:
     '''
     Classe de agurdar elementos no navegador
@@ -215,8 +234,7 @@ class WWaits:
         - Retorna o título.
     
     '''
-
-    def clickable(driver, by_tipe, selector, tries=5):
+    def clickable(driver, by_type, selector, tries=5):
         '''
         clickable():
         
@@ -226,9 +244,9 @@ class WWaits:
 
             - Retorna o elemento.
         '''
-        return WebDriverWait(driver,tries).until(EC.element_to_be_clickable((by_tipe, selector)))
+        return WebDriverWait(driver,tries).until(EC.element_to_be_clickable((by_type, selector)))
     
-    def visible(driver, by_tipe, selector,tries=5):
+    def visible(driver, by_type, selector,tries=5):
         '''
         visible():
         
@@ -238,7 +256,7 @@ class WWaits:
 
             - Retorna o elemento.
         '''
-        return WebDriverWait(driver,tries).until(EC.visibility_of_element_located((by_tipe, selector)))
+        return WebDriverWait(driver,tries).until(EC.visibility_of_element_located((by_type, selector)))
     
     def title(driver, title, tries=5):
         '''
@@ -359,8 +377,9 @@ class DSSheets:
             path_save = path.replace(arquivoxls, arquivocsv)
 
         # Faz a leitura do arquivo com pandas
-        arquivo = pd.read_excel(path)
-        arquivo.to_csv(path_save, index=None, header=True)
+        arquivo = pd.read_excel(path, dtype='str')
+        print(arquivo)
+        arquivo.to_csv(path_save, index=None, header=True, sep=';')
         print('Arquivo salvo: ' + str(path_save))
 
     def csv(path_csv, row, operation):
