@@ -82,11 +82,11 @@ class WBrowser:
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
         # Caminho do Chrome e Chromedriver
-        #chrome_options.binary_location = r"chrome-win64\chrome.exe"
-        #chrome_driver_path = r"chromedriver-win64\chromedriver.exe"
+        chrome_options.binary_location = r"chrome-win64\chrome.exe"
+        chrome_driver_path = r"chromedriver-win64\chromedriver.exe"
 
-        #service_options = webdriver.ChromeService(executable_path=chrome_driver_path)
-        #driver = webdriver.Chrome(options=chrome_options, service=service_options)
+        service_options = webdriver.ChromeService(executable_path=chrome_driver_path)
+        driver = webdriver.Chrome(options=chrome_options, service=service_options)
 
         # Obtém e retorna o driver
         driver.get(site)
