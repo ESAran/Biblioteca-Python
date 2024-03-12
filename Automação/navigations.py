@@ -88,23 +88,6 @@ class WBrowser:
         #service_options = webdriver.ChromeService(executable_path=chrome_driver_path)
         #driver = webdriver.Chrome(options=chrome_options, service=service_options)
 
-        # -- Para automação sicredi
-        def get_version_via_com(filename):
-            parser = Dispatch("Scripting.FileSystemObject")
-            try:
-                versaoBrowser = parser.GetFileVersion(filename)
-            except Exception:
-                return None
-            return versaoBrowser
-        paths = [r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"]
-        chrome_options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        versaoBrowser = list(filter(None, [get_version_via_com(p) for p in paths]))[0]
-        versaoBrowser = versaoBrowser[0:3]
-        #service_options = Service("F:\\automacao\\chromedriver\\chromedriver_"+versaoBrowser+".exe")
-        service_options = webdriver.ChromeService("//10.20.30.4//Publico//automacao//chromedriver//chromedriver_"+versaoBrowser+".exe")
-        driver = webdriver.Chrome(options=chrome_options, service=service_options)
-
         # Obtém e retorna o driver
         driver.get(site)
 
@@ -204,7 +187,6 @@ class WForms:
         textbox.clear()
         return textbox.send_keys(text)
 
-
 class WWaits:
     '''
     Classe de agurdar elementos no navegador
@@ -225,6 +207,14 @@ class WWaits:
 
         - Retorna o elemento.
 
+    invisible():
+        
+        - Aguarda um elemento deixar de estar visível, durante um determinado tempo.
+
+        - Requer a passagem por parâmetro do driver, o tipo do elemento, o seletor e a quantidade de tentativas (tempo em segundos) que serão realizadas.
+
+        - Retorna o elemento.
+        
     title():
 
         - Aguarda o título da aba do naegador se alterar
@@ -258,6 +248,18 @@ class WWaits:
         '''
         return WebDriverWait(driver,tries).until(EC.visibility_of_element_located((by_type, selector)))
     
+    def invisible(driver, by_type, selector,tries=5):
+        '''
+        invisible():
+        
+            - Aguarda um elemento deixar de estar visível, durante um determinado tempo.
+
+            - Requer a passagem por parâmetro do driver, o tipo do elemento, o seletor e a quantidade de tentativas (tempo em segundos) que serão realizadas.
+
+            - Retorna o elemento.
+        '''
+        return WebDriverWait(driver,tries).until(EC.invisibility_of_element_located((by_type, selector)))
+
     def title(driver, title, tries=5):
         '''
         title():
