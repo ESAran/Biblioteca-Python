@@ -10,6 +10,8 @@ Informações relevantes de estilização para desenvolvimento de aplicações e
 
 ### Coloração de print() no console
 
+Pode também acumular e utilizar BOLD e Green por exemplo.
+
 ```python
 class color:
    PURPLE = '\033[95m'
