@@ -6,31 +6,38 @@ Essa documentação tem como objetivo reunir diversas informações úteis para 
 
 Bibliotecas e documentações separadas por categorias. Clique no "📄" para ir à pagina da web da documentação.
 
-- ### Automações
+### Automações
 
-  - ### [📄](https://selenium-python.readthedocs.io/) Selenium
+- ### [📄](https://selenium-python.readthedocs.io/) Selenium
 
-    Para automação web e scraping de dados.
-  - ### [📄](https://pyautogui.readthedocs.io/en/latest/) PyAutoGUI
+  Para automação web e scraping de dados.
+- ### [📄](https://pyautogui.readthedocs.io/en/latest/) PyAutoGUI
 
-    Para manipulação de interface gráfica e automação desktop.
-- ### Python
+  Para manipulação de interface gráfica e automação desktop.
 
-  - ### [📄](https://docs.python.org/3/library/secrets.html) Secrets
+### Python
 
-    Gera números aleatórios de segurança para gerenciar informações sigilosas
-  - ### [📄](https://docs.python.org/3/library/csv.html) CSV
+- ### [📄](https://docs.python.org/3/library/secrets.html) Secrets
 
-    Biblioteca para manipular arquivos .csv
-- ### Análise de Dados
+  Gera números aleatórios de segurança para gerenciar informações sigilosas
+- ### [📄](https://docs.python.org/3/library/csv.html) CSV
 
-  - ### [📄](https://pandas.pydata.org/docs/) Pandas
+  Biblioteca para manipular arquivos .csv
 
-    Manipulação de dados, dataframes e análise de dados.
-- ### Estilização
+### Análise de Dados
 
-   - ### [📄](https://github.com/rsalmei/alive-progress) Alive-progress
-    Barra de progresso com diferentes estilos.
+- ### [📄](https://pandas.pydata.org/docs/) Pandas
+
+  Manipulação de dados, dataframes e análise de dados.
+
+### Estilização
+
+- ### [📄](https://github.com/rsalmei/alive-progress) Alive-progress
+
+  Barra de progresso com diferentes estilos.
+- ### [📄](https://github.com/rsalmei/alive-progress) Coloração de print() no console
+
+  Alterar cor de prints no console.
 
 ## Pastas
 
