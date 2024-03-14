@@ -30,4 +30,4 @@ print(color.BOLD + 'Hello, World!' + color.END)
 
 ```
 
-![prints](image/printscoloridos.png "Prints")![1710431630069](image/README/1710431630069.png)
+![prints](image/printscoloridos.png "Prints")![Tabela ansicode](image/tabelaansicode.png)
