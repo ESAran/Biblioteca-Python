@@ -5,12 +5,13 @@ Informações relevantes de estilização para desenvolvimento de aplicações e
 > [!NOTE]
 > Bibliotecas de automação: [Link](https://github.com/ESAran/Biblioteca-Python/blob/main/README.md#estiliza%C3%A7%C3%A3o "Bibliotecas")
 
-
-## Trechos de códigos 
+## Trechos de códigos
 
 ### Coloração de print() no console
 
 Pode também acumular e utilizar BOLD e Green por exemplo.
+
+Documentação interessante: [gist.github](https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007)
 
 ```python
 class color:
@@ -29,4 +30,4 @@ print(color.BOLD + 'Hello, World!' + color.END)
 
 ```
 
-![prints](image/printscoloridos.png "Prints")
+![prints](image/printscoloridos.png "Prints")![1710431630069](image/README/1710431630069.png)
