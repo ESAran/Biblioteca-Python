@@ -3,7 +3,7 @@
 Informações relevantes de estilização para desenvolvimento de aplicações em Python.
 
 > [!NOTE]
-> Bibliotecas de automação: [Link](https://github.com/ESAran/Biblioteca-Python/tree/main#automa%C3%A7%C3%B5es "Bibliotecas")
+> Bibliotecas de automação: [Link](https://github.com/ESAran/Biblioteca-Python/blob/main/README.md#estiliza%C3%A7%C3%A3o "Bibliotecas")
 
 
 ## Trechos de códigos 
@@ -27,4 +27,4 @@ print(color.BOLD + 'Hello, World!' + color.END)
 
 ```
 
-![1710429164608](image/README/1710429164608.png)
+![prints](image/printscoloridos.png "Prints")
