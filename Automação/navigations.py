@@ -384,9 +384,9 @@ class DSSheets:
         arquivo.to_csv(path_save, index=None, header=True, sep=';')
         print('Arquivo salvo: ' + str(path_save))
 
-    def csv(path_csv, row, operation):
+    def operations_csv(path_csv, row, operation):
         '''
-        csv():
+        operations_csv():
 
             - Realiza operações em arquivos CSV
 
@@ -401,23 +401,23 @@ class DSSheets:
         # Append (Adiciona uma linha)
         if operation == 'a':
             # Abre o arquivo no modo append e cria um objeto dele
-            with open(path_csv, 'a') as csv:
+            with open(path_csv, 'a', newline='') as file:
                 # Cria um writer para adiocnar informações
-                csv_writer = writer(csv)
+                csv_writer = writer(file)
                 # Passa a linha à ser adicionada
                 csv_writer.writerow(row)
                 # Fecha o arquivo
-                csv.close()
+                file.close()
         # Write (Escreve uma linha)
         if operation == 'w':
-            # Abre o arquivo no modo append e cria um objeto dele
-            with open(path_csv, 'w') as csv:
+            # Abre o arquivo no modo write e cria um objeto dele
+            with open(path_csv, 'w', newline='') as file:
                 # Cria um writer para adiocnar informações
-                csv_writer = writer(csv)
+                csv_writer = writer(file)
                 # Passa a linha à ser adicionada
                 csv_writer.writerow(row)
                 # Fecha o arquivo
-                csv.close()
+                file.close()
 
 
 class DScreen:
