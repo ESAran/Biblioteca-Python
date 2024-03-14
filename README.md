@@ -35,7 +35,7 @@ Bibliotecas e documentações separadas por categorias. Clique no "📄" para ir
 - ### [📄](https://github.com/rsalmei/alive-progress) Alive-progress
 
   Barra de progresso com diferentes estilos.
-- ### [📄](https://github.com/rsalmei/alive-progress) Coloração de print() no console
+- ### [📄](https://github.com/ESAran/Biblioteca-Python/tree/main/Estiliza%C3%A7%C3%A3o#colora%C3%A7%C3%A3o-de-print-no-console) Coloração de print() no console
 
   Alterar cor de prints no console.
 
