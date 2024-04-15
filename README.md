@@ -25,6 +25,10 @@ Biblioteca para arquivo de Log
 
 Biblioteca para manipular arquivos .csv
 
+- ### [📄](https://requests.readthedocs.io/en/latest/) Requests
+
+Biblioteca para utilização de protocolo HTTP (utilizado para API e JSON)
+
 - ### [📄](https://docs.python.org/3/library/secrets.html) Secrets
 
   Gera números aleatórios de segurança para gerenciar informações sigilosas
@@ -51,3 +55,7 @@ Pastas com arquivos criados para auxiliar no desenvolvimento.
 ### Automação
 
 Arquivos com funções de automação WEB e Desktop, simplificando bibliotecas mais complexas com a mesma finalidade.
+
+### Estilização
+
+Arquivos com funções de estilização de código, com demonstrações das bibliotecas.
